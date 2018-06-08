@@ -1,0 +1,24 @@
+server:
+  port: 8075
+
+spring:
+  application:
+    name: turbine-server
+
+security:
+  basic:
+    enabled: false
+
+turbine:
+  aggregator:
+    #需要聚合哪些集群
+    clusterConfig: default
+    #监控哪些服务
+    appConfig: user-center,message-center
+    clusterNameExpression: new String("default")
+
+#中央服务管理配置
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8071/eureka/

@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.mapper.system.ModuleMapper">
+    <resultMap id="BaseResultMap" type="com.cloud.entity.system.module.ModuleVo">
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="module_name" jdbcType="VARCHAR" property="moduleName" />
+        <result column="module_code" jdbcType="VARCHAR" property="moduleCode" />
+        <result column="icon" jdbcType="VARCHAR" property="icon" />
+        <result column="path" jdbcType="VARCHAR" property="path" />
+        <result column="system" jdbcType="INTEGER" property="system" />
+        <result column="sort" jdbcType="INTEGER" property="sort" />
+        <result column="status" jdbcType="BIT" property="status" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="create_user_id" jdbcType="VARCHAR" property="createUserId" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_user_id" jdbcType="VARCHAR" property="updateUserId" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="disabled" jdbcType="BIT" property="disabled" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, module_name, module_code, icon, path, system, sort, status,
+        remark, create_user_id, create_time, update_user_id, update_time,
+        disabled
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String"
+        resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from admin_module
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from
+        admin_module
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.cloud.entity.system.module.Module">
+        insert into admin_module (id,
+        module_name, module_code,
+        icon, path, system,
+        sort, status, remark,
+        create_user_id,
+        create_time, update_user_id, update_time,
+        disabled)
+        values
+        (#{id,jdbcType=VARCHAR}, #{moduleName,jdbcType=VARCHAR},
+        #{moduleCode,jdbcType=VARCHAR},
+        #{icon,jdbcType=VARCHAR},
+        #{path,jdbcType=VARCHAR}, #{system,jdbcType=INTEGER},
+        #{sort,jdbcType=INTEGER}, #{status,jdbcType=BIT},
+        #{remark,jdbcType=VARCHAR}, #{createUserId,jdbcType=VARCHAR},
+        #{createTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=VARCHAR},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{disabled,jdbcType=BIT})
+    </insert>
+    <insert id="insertSelective" parameterType="com.cloud.entity.system.module.Module">
+        insert into admin_module
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="moduleName != null">
+                module_name,
+            </if>
+            <if test="moduleCode != null">
+                module_code,
+            </if>
+            <if test="icon != null">
+                icon,
+            </if>
+            <if test="path != null">
+                path,
+            </if>
+            <if test="system != null">
+                system,
+            </if>
+            <if test="sort != null">
+                sort,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="createUserId != null">
+                create_user_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateUserId != null">
+                update_user_id,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="disabled != null">
+                disabled,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="moduleName != null">
+                #{moduleName,jdbcType=VARCHAR},
+            </if>
+            <if test="moduleCode != null">
+                #{moduleCode,jdbcType=VARCHAR},
+            </if>
+            <if test="icon != null">
+                #{icon,jdbcType=VARCHAR},
+            </if>
+            <if test="path != null">
+                #{path,jdbcType=VARCHAR},
+            </if>
+            <if test="system != null">
+                #{system,jdbcType=INTEGER},
+            </if>
+            <if test="sort != null">
+                #{sort,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=BIT},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="createUserId != null">
+                #{createUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUserId != null">
+                #{updateUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="disabled != null">
+                #{disabled,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.cloud.entity.system.module.Module">
+        update admin_module
+        <set>
+            <if test="moduleName != null">
+                module_name = #{moduleName,jdbcType=VARCHAR},
+            </if>
+            <if test="moduleCode != null">
+                module_code = #{moduleCode,jdbcType=VARCHAR},
+            </if>
+            <if test="icon != null">
+                icon = #{icon,jdbcType=VARCHAR},
+            </if>
+            <if test="path != null">
+                path = #{path,jdbcType=VARCHAR},
+            </if>
+            <if test="system != null">
+                system = #{system,jdbcType=INTEGER},
+            </if>
+            <if test="sort != null">
+                sort = #{sort,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=BIT},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="createUserId != null">
+                create_user_id = #{createUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUserId != null">
+                update_user_id = #{updateUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="disabled != null">
+                disabled = #{disabled,jdbcType=BIT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.cloud.entity.system.module.Module">
+        update admin_module
+        set
+        module_name = #{moduleName,jdbcType=VARCHAR},
+        module_code =
+        #{moduleCode,jdbcType=VARCHAR},
+        icon = #{icon,jdbcType=VARCHAR},
+        path =
+        #{path,jdbcType=VARCHAR},
+        system = #{system,jdbcType=INTEGER},
+        sort =
+        #{sort,jdbcType=INTEGER},
+        status = #{status,jdbcType=BIT},
+        remark =
+        #{remark,jdbcType=VARCHAR},
+        create_user_id =
+        #{createUserId,jdbcType=VARCHAR},
+        create_time =
+        #{createTime,jdbcType=TIMESTAMP},
+        update_user_id =
+        #{updateUserId,jdbcType=VARCHAR},
+        update_time =
+        #{updateTime,jdbcType=TIMESTAMP},
+        disabled = #{disabled,jdbcType=BIT}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    
+    <select id="getList" parameterType="com.cloud.entity.system.module.ModuleQo" resultMap="BaseResultMap">
+        SELECT
+            <include refid="Base_Column_List" />
+        FROM admin_module module
+        WHERE 
+            1 = 1
+        AND module.disabled = 0
+        <if test="moduleName != null and moduleName != ''">
+            AND module.module_name LIKE CONCAT('%', #{moduleName}, '%')
+        </if>
+        <if test="moduleCode != null and moduleCode != ''">
+            AND module.module_code LIKE CONCAT('%', #{moduleCode}, '%')
+        </if>
+        <if test="status != null">
+            AND module.status = #{status}
+        </if>
+        <if test="remark != null and remark != ''">
+            AND module.remark LIKE CONCAT('%', #{remark}, '%')
+        </if>
+    </select>
+    
+</mapper>

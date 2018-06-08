@@ -1,0 +1,41 @@
+server:
+  port: 8072
+
+spring:
+  application:
+    name: zuul-server
+  #配置服务追踪服务器地址
+  zipkin:
+    base-url: http://localhost:8074
+
+#中央服务管理配置
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8071/eureka/
+
+#打开Feign的断路器
+feign:
+  hystrix:
+    enabled: true
+
+zuul:
+  routes:
+    user-center:
+      path: /userCenter/**
+      serviceId: user-center
+    message-center:
+      path: /messageCenter/**
+      serviceId: message-center
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+
+home:
+  baseUrl: http://localhost:8080
+

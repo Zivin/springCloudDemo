@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="debug">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout
+                pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} |-%-5level [%thread] %c [%L] -| %msg%n" />
+        </Console>
+    </Appenders>
+    <Loggers>
+        <!-- Spring Loggers -->
+        <logger name="org.springframework" level="info" />
+        <logger name="org.springframework.beans" level="info" />
+        <logger name="org.springframework.core" level="info" />
+        <logger name="org.springframework.context" level="info" />
+        <logger name="org.springframework.web" level="info" />
+        <logger name="org.springframework.batch" level="info" />
+        <logger name="org.springframework.integration" level="info" />
+
+        <!-- Apache Loggers -->
+        <logger name="org.apache" level="info" />
+        <logger name="org.apache.http" level="info" />
+        <logger name="org.apache.shiro" level="info" />
+        <logger name="org.apache.solr" level="info" />
+        <logger name="org.apache.lucene" level="info" />
+        <logger name="org.apache.tomcat" level="info" />
+        <logger name="org.apache.commons" level="info" />
+
+        <!-- MyBatis Loggers -->
+        <logger name="org.mybatis" level="info" />
+        <logger name="org.apache.ibatis" level="info" />
+
+        <!-- Alibaba Loggers -->
+        <logger name="com.alibaba" level="info" />
+        <logger name="com.alibaba.druid" level="info" />
+
+        <!-- Root Logger -->
+        <Root level="debug">
+            <AppenderRef ref="Console" />
+        </Root>
+    </Loggers>
+</Configuration>

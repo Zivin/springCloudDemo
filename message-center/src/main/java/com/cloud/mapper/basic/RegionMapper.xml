@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.mapper.basic.RegionMapper">
+    <resultMap id="BaseResultMap" type="com.cloud.entity.basic.region.RegionVo">
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="region_name" jdbcType="VARCHAR" property="regionName" />
+        <result column="region_code" jdbcType="VARCHAR" property="regionCode" />
+        <result column="region_level" jdbcType="BIT" property="regionLevel" />
+        <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+        <result column="status" jdbcType="BIT" property="status" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="create_user_id" jdbcType="VARCHAR" property="createUserId" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_user_id" jdbcType="VARCHAR" property="updateUserId" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="disabled" jdbcType="BIT" property="disabled" />
+        <result column="parentRegionName" jdbcType="VARCHAR" property="parentRegionName" />
+        <result column="parentRegionCode" jdbcType="VARCHAR" property="parentRegionCode" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        region.id, 
+        region.region_name, 
+        region.region_code, 
+        region.region_level, 
+        region.parent_id, 
+        region.status,
+        region.remark, 
+        region.create_user_id, 
+        region.create_time, 
+        region.update_user_id, 
+        region.update_time,
+        region.disabled
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String"
+        resultMap="BaseResultMap">
+        select
+            <include refid="Base_Column_List" />,
+            parent.region_name AS parentRegionName,
+            parent.region_code AS parentRegionCode
+        FROM basic_region region
+        LEFT JOIN basic_region parent ON region.parent_id = parent.id AND parent.disabled = 0
+        where region.id = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from
+        basic_region
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.cloud.entity.basic.region.Region">
+        insert into basic_region (id,
+        region_name, region_code,
+        region_level, parent_id, status, remark,
+        create_user_id, create_time,
+        update_user_id, update_time, disabled
+        )
+        values (#{id,jdbcType=VARCHAR}, #{regionName,jdbcType=VARCHAR},
+        #{regionCode,jdbcType=VARCHAR},
+        #{regionLevel,jdbcType=BIT},
+        #{parentId,jdbcType=VARCHAR}, #{status,jdbcType=BIT},
+        #{remark,jdbcType=VARCHAR}, #{createUserId,jdbcType=VARCHAR},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateUserId,jdbcType=VARCHAR},
+        #{updateTime,jdbcType=TIMESTAMP}, #{disabled,jdbcType=BIT}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.cloud.entity.basic.region.Region">
+        insert into basic_region
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="regionName != null">
+                region_name,
+            </if>
+            <if test="regionCode != null">
+                region_code,
+            </if>
+            <if test="regionLevel != null">
+                region_level,
+            </if>
+            <if test="parentId != null">
+                parent_id,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="createUserId != null">
+                create_user_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateUserId != null">
+                update_user_id,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="disabled != null">
+                disabled,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="regionName != null">
+                #{regionName,jdbcType=VARCHAR},
+            </if>
+            <if test="regionCode != null">
+                #{regionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="regionLevel != null">
+                #{regionLevel,jdbcType=BIT},
+            </if>
+            <if test="parentId != null">
+                #{parentId,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=BIT},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="createUserId != null">
+                #{createUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUserId != null">
+                #{updateUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="disabled != null">
+                #{disabled,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.cloud.entity.basic.region.Region">
+        update basic_region
+        <set>
+            <if test="regionName != null">
+                region_name = #{regionName,jdbcType=VARCHAR},
+            </if>
+            <if test="regionCode != null">
+                region_code = #{regionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="regionLevel != null">
+                region_level = #{regionLevel,jdbcType=BIT},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=BIT},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="createUserId != null">
+                create_user_id = #{createUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUserId != null">
+                update_user_id = #{updateUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="disabled != null">
+                disabled = #{disabled,jdbcType=BIT},
+            </if>
+        </set>
+        where 
+        <choose>
+            <when test="ids != null and ids.size() > 0">
+                id IN 
+                <foreach collection="ids" item="item" index="index" open="(" close=")" separator=",">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </when>
+            <otherwise>
+                id = #{id,jdbcType=VARCHAR}
+            </otherwise>
+        </choose>
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.cloud.entity.basic.region.Region">
+        update basic_region
+        set
+        region_name = #{regionName,jdbcType=VARCHAR},
+        region_code =
+        #{regionCode,jdbcType=VARCHAR},
+        region_level =
+        #{regionLevel,jdbcType=BIT},
+        parent_id = #{parentId,jdbcType=VARCHAR},
+        status = #{status,jdbcType=BIT},
+        remark = #{remark,jdbcType=VARCHAR},
+        create_user_id = #{createUserId,jdbcType=VARCHAR},
+        create_time =
+        #{createTime,jdbcType=TIMESTAMP},
+        update_user_id =
+        #{updateUserId,jdbcType=VARCHAR},
+        update_time =
+        #{updateTime,jdbcType=TIMESTAMP},
+        disabled = #{disabled,jdbcType=BIT}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    
+    <select id="getList" parameterType="com.cloud.entity.basic.region.RegionQo" resultMap="BaseResultMap">
+        SELECT
+            <include refid="Base_Column_List" />,
+            parent.region_name AS parentRegionName,
+            parent.region_code AS parentRegionCode
+        FROM basic_region region
+        LEFT JOIN basic_region parent ON region.parent_id = parent.id AND parent.disabled = 0
+        WHERE 
+            1 = 1
+        and region.disabled = 0
+        <if test="parentId != null and parentId != ''">
+            AND region.parent_id = #{parentId}
+        </if>
+        <if test="regionName != null and regionName != ''">
+            AND region.region_name LIKE CONCAT('%', #{regionName}, '%')
+        </if>
+        <if test="regionCode != null and regionCode != ''">
+            AND region.region_code LIKE CONCAT('%', #{regionCode}, '%')
+        </if>
+        <if test="regionLevel != null">
+            AND region.region_level = #{regionLevel}
+        </if>
+        <if test="status != null">
+            AND region.status = #{status}
+        </if>
+        <if test="remark != null and remark != ''">
+            AND region.remark LIKE CONCAT('%', #{remark}, '%')
+        </if>
+    </select>
+    
+    <select id="getByCode" parameterType="java.lang.String" resultType="com.cloud.entity.basic.region.RegionVo">
+        SELECT
+            region.id, 
+            region.region_name, 
+            region.region_code, 
+            region.region_level, 
+            region.parent_id, 
+            region.status,
+            region.remark, 
+            region.create_user_id, 
+            region.create_time, 
+            region.update_user_id, 
+            region.update_time,
+            region.disabled
+        FROM 
+            basic_region region
+        WHERE 
+            region.region_code = #{regionCode}
+        AND region.disabled = 0
+    </select>
+</mapper>

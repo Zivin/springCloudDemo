@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.mapper.account.AdminMapper">
+    <resultMap id="BaseResultMap" type="com.cloud.entity.account.admin.AdminVo">
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="account" jdbcType="VARCHAR" property="account" />
+        <result column="user_name" jdbcType="VARCHAR" property="userName" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="salt" jdbcType="VARCHAR" property="salt" />
+        <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+        <result column="role_id" jdbcType="VARCHAR" property="roleId" />
+        <result column="real_name" jdbcType="VARCHAR" property="realName" />
+        <result column="phone" jdbcType="VARCHAR" property="phone" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="gender" jdbcType="BIT" property="gender" />
+        <result column="status" jdbcType="BIT" property="status" />
+        <result column="admin_type" jdbcType="BIT" property="adminType" />
+        <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="create_user_id" jdbcType="VARCHAR" property="createUserId" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_user_id" jdbcType="VARCHAR" property="updateUserId" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="disabled" jdbcType="BIT" property="disabled" />
+        <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        admin.id,
+        admin.account,
+        admin.user_name,
+        admin.password,
+        admin.salt,
+        admin.avatar,
+        admin.role_id,
+        admin.real_name,
+        admin.phone,
+        admin.email,
+        admin.gender,
+        admin.status,
+        admin.admin_type,
+        admin.last_login_time,
+        admin.remark,
+        admin.create_user_id,
+        admin.create_time,
+        admin.update_user_id,
+        admin.update_time,
+        admin.disabled
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        role.role_name,
+        <include refid="Base_Column_List" />
+        from admin_account admin
+        left join admin_role role on admin.role_id = role.id and role.disabled = 0
+        where admin.id = #{id,jdbcType=VARCHAR}
+        and admin.disabled = 0
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from admin_account
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.cloud.entity.account.admin.Admin">
+        insert into admin_account (id,
+        account, user_name,
+        password, salt, avatar, role_id,
+        real_name, phone, email,
+        gender, status, admin_type, last_login_time,
+        remark, create_user_id,
+        create_time,
+        update_user_id, update_time, disabled
+        )
+        values
+        (#{id,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR},
+        #{userName,jdbcType=VARCHAR},
+        #{password,jdbcType=VARCHAR},
+        #{salt,jdbcType=VARCHAR},
+        #{avatar,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR},
+        #{realName,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
+        #{email,jdbcType=VARCHAR},
+        #{gender,jdbcType=BIT},
+        #{status,jdbcType=BIT}, #{adminType,jdbcType=BIT},
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+        #{remark,jdbcType=VARCHAR},
+        #{createUserId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+        #{updateUserId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP},
+        #{disabled,jdbcType=BIT}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.cloud.entity.account.admin.Admin">
+        insert into admin_account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="account != null">
+                account,
+            </if>
+            <if test="userName != null">
+                user_name,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="salt != null">
+                salt,
+            </if>
+            <if test="avatar != null">
+                avatar,
+            </if>
+            <if test="roleId != null">
+                role_id,
+            </if>
+            <if test="realName != null">
+                real_name,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="gender != null">
+                gender,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="adminType != null">
+                admin_type,
+            </if>
+            <if test="lastLoginTime != null">
+                last_login_time,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="createUserId != null">
+                create_user_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateUserId != null">
+                update_user_id,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="disabled != null">
+                disabled,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="account != null">
+                #{account,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="salt != null">
+                #{salt,jdbcType=VARCHAR},
+            </if>
+            <if test="avatar != null">
+                #{avatar,jdbcType=VARCHAR},
+            </if>
+            <if test="roleId != null">
+                #{roleId,jdbcType=VARCHAR},
+            </if>
+            <if test="realName != null">
+                #{realName,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null">
+                #{gender,jdbcType=BIT},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=BIT},
+            </if>
+            <if test="adminType != null">
+                #{adminType,jdbcType=BIT},
+            </if>
+            <if test="lastLoginTime != null">
+                #{lastLoginTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="createUserId != null">
+                #{createUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUserId != null">
+                #{updateUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="disabled != null">
+                #{disabled,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.cloud.entity.account.admin.Admin">
+        update admin_account
+        <set>
+            <if test="account != null">
+                account = #{account,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                user_name = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="salt != null">
+                salt = #{salt,jdbcType=VARCHAR},
+            </if>
+            <if test="avatar != null">
+                avatar = #{avatar,jdbcType=VARCHAR},
+            </if>
+            <if test="roleId != null">
+                role_id = #{roleId,jdbcType=VARCHAR},
+            </if>
+            <if test="realName != null">
+                real_name = #{realName,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null">
+                gender = #{gender,jdbcType=BIT},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=BIT},
+            </if>
+            <if test="adminType != null">
+                admin_type = #{adminType,jdbcType=BIT},
+            </if>
+            <if test="lastLoginTime != null">
+                last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="createUserId != null">
+                create_user_id = #{createUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUserId != null">
+                update_user_id = #{updateUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="disabled != null">
+                disabled = #{disabled,jdbcType=BIT},
+            </if>
+        </set>
+        where
+        <choose>
+            <when test="ids != null and ids.size() > 0">
+                id IN 
+                <foreach collection="ids" item="item" index="index" open="(" close=")" separator=",">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </when>
+            <otherwise>
+                id = #{id,jdbcType=VARCHAR}
+            </otherwise>
+        </choose>
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.cloud.entity.account.admin.Admin">
+        update admin_account
+        set account = #{account,jdbcType=VARCHAR},
+        user_name =
+        #{userName,jdbcType=VARCHAR},
+        password = #{password,jdbcType=VARCHAR},
+        salt = #{salt,jdbcType=VARCHAR},
+        avatar = #{avatar,jdbcType=VARCHAR},
+        role_id =
+        #{roleId,jdbcType=VARCHAR},
+        real_name = #{realName,jdbcType=VARCHAR},
+        phone = #{phone,jdbcType=VARCHAR},
+        email = #{email,jdbcType=VARCHAR},
+        gender = #{gender,jdbcType=BIT},
+        status = #{status,jdbcType=BIT},
+        admin_type = #{adminType,jdbcType=BIT},
+        last_login_time =
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+        remark = #{remark,jdbcType=VARCHAR},
+        create_user_id = #{createUserId,jdbcType=VARCHAR},
+        create_time =
+        #{createTime,jdbcType=TIMESTAMP},
+        update_user_id =
+        #{updateUserId,jdbcType=VARCHAR},
+        update_time =
+        #{updateTime,jdbcType=TIMESTAMP},
+        disabled = #{disabled,jdbcType=BIT}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    
+    <select id="getList" parameterType="com.cloud.entity.account.admin.AdminQo" resultMap="BaseResultMap">
+        SELECT
+            <include refid="Base_Column_List" />
+        FROM admin_account admin
+        WHERE 
+            1 = 1
+        <if test="roleId != null and roleId != ''">
+            and admin.role_id = #{roleId}
+        </if>
+        <if test="account != null and account != ''">
+            and admin.account = #{account}
+        </if>
+        <if test="userName != null and userName != ''">
+            and admin.user_name = #{userName}
+        </if>
+        <if test="realName != null and realName != ''">
+            and admin.real_name = #{realName}
+        </if>
+        <if test="phone != null and phone != ''">
+            and admin.phone = #{phone}
+        </if>
+        <if test="email != null and email != ''">
+            and admin.email = #{email}
+        </if>
+        <if test="gender != null">
+            and admin.gender = #{gender}
+        </if>
+        <if test="adminType != null">
+            and admin.admin_type = #{adminType}
+        </if>
+        <if test="status != null">
+            and admin.status = #{status}
+        </if>
+        <if test="remark != null and remark != ''">
+            and admin.remark = #{remark}
+        </if>
+        and admin.disabled = 0
+    </select>
+
+    <select id="getByAccount" parameterType="java.lang.String" resultType="com.cloud.entity.account.admin.AdminVo">
+        SELECT
+        	admin.id AS id,
+        	admin.account AS account,
+        	admin.user_name AS userName,
+        	admin.password AS password,
+            admin.salt AS salt,
+        	admin.avatar AS avatar,
+        	admin.role_id AS roleId,
+        	admin.real_name AS realName,
+        	admin.phone AS phone,
+        	admin.email AS email,
+        	admin.gender AS gender,
+        	admin.status AS status,
+        	admin.admin_type AS adminType,
+        	admin.last_login_time AS lastLoginTime,
+        	admin.remark AS remark,
+        	admin.create_user_id AS createUserId,
+        	admin.create_time AS createTime,
+        	admin.update_user_id AS updateUserId,
+        	admin.update_time AS updateTime,
+        	admin.disabled AS disabled 
+        FROM
+        	admin_account admin 
+        WHERE
+        	admin.account = #{account}
+        and admin.disabled = 0
+    </select>
+
+</mapper>

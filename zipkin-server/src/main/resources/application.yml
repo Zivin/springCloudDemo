@@ -1,0 +1,6 @@
+server:
+  port: 8074
+
+spring:
+  application:
+    name: zipkin-server

@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.mapper.system.MenuMapper">
+    <resultMap id="BaseResultMap" type="com.cloud.entity.system.menu.MenuVo">
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
+        <result column="menu_code" jdbcType="VARCHAR" property="menuCode" />
+        <result column="icon" jdbcType="VARCHAR" property="icon" />
+        <result column="path" jdbcType="VARCHAR" property="path" />
+        <result column="status" jdbcType="BIT" property="status" />
+        <result column="module_id" jdbcType="VARCHAR" property="moduleId" />
+        <result column="sort" jdbcType="INTEGER" property="sort" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="create_user_id" jdbcType="VARCHAR" property="createUserId" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_user_id" jdbcType="VARCHAR" property="updateUserId" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="disabled" jdbcType="BIT" property="disabled" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,
+        menu_name,
+        menu_code,
+        icon,
+        path,
+        status,
+        module_id,
+        sort,
+        remark,
+        create_user_id,
+        create_time,
+        update_user_id,
+        update_time,
+        disabled
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String"
+        resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from admin_menu menu
+        where id = #{id,jdbcType=VARCHAR}
+        and menu.disabled = 0
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from admin_menu
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.cloud.entity.system.menu.Menu">
+        insert into admin_menu (id,
+        menu_name, menu_code, icon, path,
+        status, module_id, sort,
+        remark,
+        create_user_id,
+        create_time,
+        update_user_id, update_time, disabled
+        )
+        values
+        (#{id,jdbcType=VARCHAR}, #{menuName,jdbcType=VARCHAR},
+        #{menuCode,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR},
+        #{path,jdbcType=VARCHAR}, #{status,jdbcType=BIT},
+        #{moduleId,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER},
+        #{remark,jdbcType=VARCHAR}, #{createUserId,jdbcType=VARCHAR},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateUserId,jdbcType=VARCHAR},
+        #{updateTime,jdbcType=TIMESTAMP}, #{disabled,jdbcType=BIT}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.cloud.entity.system.menu.Menu">
+        insert into admin_menu
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="menuName != null">
+                menu_name,
+            </if>
+            <if test="menuCode != null">
+                menu_code,
+            </if>
+            <if test="icon != null">
+                icon,
+            </if>
+            <if test="path != null">
+                path,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="moduleId != null">
+                module_id,
+            </if>
+            <if test="sort != null">
+                sort,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="createUserId != null">
+                create_user_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateUserId != null">
+                update_user_id,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="disabled != null">
+                disabled,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="menuName != null">
+                #{menuName,jdbcType=VARCHAR},
+            </if>
+            <if test="menuCode != null">
+                #{menuCode,jdbcType=VARCHAR},
+            </if>
+            <if test="icon != null">
+                #{icon,jdbcType=VARCHAR},
+            </if>
+            <if test="path != null">
+                #{path,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=BIT},
+            </if>
+            <if test="moduleId != null">
+                #{moduleId,jdbcType=VARCHAR},
+            </if>
+            <if test="sort != null">
+                #{sort,jdbcType=INTEGER},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="createUserId != null">
+                #{createUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUserId != null">
+                #{updateUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="disabled != null">
+                #{disabled,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.cloud.entity.system.menu.Menu">
+        update admin_menu
+        <set>
+            <if test="menuName != null">
+                menu_name = #{menuName,jdbcType=VARCHAR},
+            </if>
+            <if test="menuCode != null">
+                menu_code = #{menuCode,jdbcType=VARCHAR},
+            </if>
+            <if test="icon != null">
+                icon = #{icon,jdbcType=VARCHAR},
+            </if>
+            <if test="path != null">
+                path = #{path,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=BIT},
+            </if>
+            <if test="moduleId != null">
+                module_id = #{moduleId,jdbcType=VARCHAR},
+            </if>
+            <if test="sort != null">
+                sort = #{sort,jdbcType=INTEGER},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="createUserId != null">
+                create_user_id = #{createUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUserId != null">
+                update_user_id = #{updateUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="disabled != null">
+                disabled = #{disabled,jdbcType=BIT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.cloud.entity.system.menu.Menu">
+        update admin_menu
+        set
+        menu_name = #{menuName,jdbcType=VARCHAR},
+        menu_code =
+        #{menuCode,jdbcType=VARCHAR},
+        icon = #{icon,jdbcType=VARCHAR},
+        path =
+        #{path,jdbcType=VARCHAR},
+        status = #{status,jdbcType=BIT},
+        module_id =
+        #{moduleId,jdbcType=VARCHAR},
+        sort = #{sort,jdbcType=INTEGER},
+        remark =
+        #{remark,jdbcType=VARCHAR},
+        create_user_id =
+        #{createUserId,jdbcType=VARCHAR},
+        create_time =
+        #{createTime,jdbcType=TIMESTAMP},
+        update_user_id =
+        #{updateUserId,jdbcType=VARCHAR},
+        update_time =
+        #{updateTime,jdbcType=TIMESTAMP},
+        disabled = #{disabled,jdbcType=BIT}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+        
+    <select id="getList" parameterType="com.cloud.entity.system.menu.MenuQo" resultMap="BaseResultMap">
+        SELECT
+            <include refid="Base_Column_List" />
+        FROM admin_menu menu
+        WHERE 
+            1 = 1
+        and menu.disabled = 0
+        <if test="menuName != null and menuName != ''">
+            AND menu.menu_name LIKE CONCAT('%', #{menuName}, '%')
+        </if>
+        <if test="menuCode != null and menuCode != ''">
+            AND menu.menu_code LIKE CONCAT('%', #{menuCode}, '%')
+        </if>
+        <if test="status != null">
+            AND menu.status = #{status}
+        </if>
+        <if test="remark != null and remark != ''">
+            AND menu.remark LIKE CONCAT('%', #{remark}, '%')
+        </if>
+    </select>
+    
+    <select id="getMenuPermissionList" parameterType="java.lang.String" resultType="com.cloud.entity.system.menu.MenuPermission">
+        SELECT
+        	mp.id AS id,
+        	mp.menu_id AS menuId,
+        	m.menu_name AS menuName,
+        	mp.permission_id AS permissionId,
+        	p.permission_name AS permissionName,
+        	mp.status AS status,
+        	mp.remark AS remark,
+        	mp.create_user_id AS createUserId,
+        	mp.create_time AS createTime,
+        	mp.update_user_id AS updateUserId,
+        	mp.update_time AS updateTime 
+        FROM
+        	admin_menu_permission mp
+        INNER JOIN admin_menu m ON mp.menu_id = m.id AND m.disabled = 0
+        INNER JOIN admin_permission p ON mp.permission_id = p.id AND p.disabled = 0
+        WHERE
+            mp.disabled = 0
+            <if test="menuId != null and menuId != ''">
+                AND mp.menu_id = #{menuId}
+            </if>
+    </select>
+    
+    <update id="disableMenuPermission" parameterType="com.cloud.entity.system.menu.MenuVo">
+        UPDATE admin_menu_permission
+        SET status = 1, update_user_id = #{updateUserId}, update_time = #{updateTime}
+        WHERE menu_id = #{id}
+    </update>
+    
+    <update id="enableMenuPermission" parameterType="com.cloud.entity.system.menu.MenuVo">
+        UPDATE admin_menu_permission
+        SET status = 0, update_user_id = #{updateUserId}, update_time = #{updateTime}
+        WHERE id IN 
+        <foreach collection="menuPermissionList" index="index" item="item" open="(" close=")" separator=",">
+            #{item.id}
+        </foreach>
+    </update>
+    
+</mapper>

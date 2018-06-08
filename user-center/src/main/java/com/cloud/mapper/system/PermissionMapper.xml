@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.mapper.system.PermissionMapper">
+    <resultMap id="BaseResultMap" type="com.cloud.entity.system.permission.PermissionVo">
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="permission_name" jdbcType="VARCHAR" property="permissionName" />
+        <result column="permission_code" jdbcType="VARCHAR" property="permissionCode" />
+        <result column="status" jdbcType="BIT" property="status" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="create_user_id" jdbcType="VARCHAR" property="createUserId" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_user_id" jdbcType="VARCHAR" property="updateUserId" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="disabled" jdbcType="BIT" property="disabled" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,
+        permission_name,
+        permission_code,
+        status,
+        remark,
+        create_user_id,
+        create_time,
+        update_user_id,
+        update_time,
+        disabled
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String"
+        resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from admin_permission permission
+        where id = #{id,jdbcType=VARCHAR}
+        and permission.disabled = 0
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from admin_permission
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.cloud.entity.system.permission.Permission">
+        insert into admin_permission (id,
+        permission_name, permission_code,
+        status, remark, create_user_id,
+        create_time, update_user_id, update_time,
+        disabled)
+        values
+        (#{id,jdbcType=VARCHAR}, #{permissionName,jdbcType=VARCHAR},
+        #{permissionCode,jdbcType=VARCHAR},
+        #{status,jdbcType=BIT},
+        #{remark,jdbcType=VARCHAR}, #{createUserId,jdbcType=VARCHAR},
+        #{createTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=VARCHAR},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{disabled,jdbcType=BIT})
+    </insert>
+    <insert id="insertSelective" parameterType="com.cloud.entity.system.permission.Permission">
+        insert into admin_permission
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="permissionName != null">
+                permission_name,
+            </if>
+            <if test="permissionCode != null">
+                permission_code,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="createUserId != null">
+                create_user_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateUserId != null">
+                update_user_id,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="disabled != null">
+                disabled,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="permissionName != null">
+                #{permissionName,jdbcType=VARCHAR},
+            </if>
+            <if test="permissionCode != null">
+                #{permissionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=BIT},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="createUserId != null">
+                #{createUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUserId != null">
+                #{updateUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="disabled != null">
+                #{disabled,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.cloud.entity.system.permission.Permission">
+        update admin_permission
+        <set>
+            <if test="permissionName != null">
+                permission_name = #{permissionName,jdbcType=VARCHAR},
+            </if>
+            <if test="permissionCode != null">
+                permission_code = #{permissionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=BIT},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="createUserId != null">
+                create_user_id = #{createUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUserId != null">
+                update_user_id = #{updateUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="disabled != null">
+                disabled = #{disabled,jdbcType=BIT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.cloud.entity.system.permission.Permission">
+        update admin_permission
+        set permission_name = #{permissionName,jdbcType=VARCHAR},
+        permission_code = #{permissionCode,jdbcType=VARCHAR},
+        status =
+        #{status,jdbcType=BIT},
+        remark = #{remark,jdbcType=VARCHAR},
+        create_user_id = #{createUserId,jdbcType=VARCHAR},
+        create_time =
+        #{createTime,jdbcType=TIMESTAMP},
+        update_user_id =
+        #{updateUserId,jdbcType=VARCHAR},
+        update_time =
+        #{updateTime,jdbcType=TIMESTAMP},
+        disabled = #{disabled,jdbcType=BIT}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    
+    <select id="getList" parameterType="com.cloud.entity.system.permission.PermissionQo" resultMap="BaseResultMap">
+        SELECT
+            <include refid="Base_Column_List" />
+        FROM admin_permission permission
+        WHERE 
+            1 = 1
+        AND permission.disabled = 0
+        <if test="permissionName != null and permissionName != ''">
+            AND permission.permission_name LIKE CONCAT('%', #{permissionName}, '%')
+        </if>
+        <if test="permissionCode != null and permissionCode != ''">
+            AND permission.permission_code LIKE CONCAT('%', #{permissionCode}, '%')
+        </if>
+        <if test="status != null">
+            AND permission.status = #{status}
+        </if>
+        <if test="remark != null and remark != ''">
+            AND permission.remark LIKE CONCAT('%', #{remark}, '%')
+        </if>
+    </select>
+    
+    <select id="getPermissionByRoleId" parameterType="java.lang.String" resultType="com.cloud.entity.system.permission.PermissionVo">
+        SELECT
+            module.system AS system,
+        	module.module_name AS moduleName,
+            module.module_code AS moduleCode,
+        	module.icon AS moduleIcon,
+        	module.path AS modulePath,
+        	menu.menu_name AS menuName,
+            menu.menu_code AS menuCode,
+        	menu.icon AS menuIcon,
+        	menu.path AS menuPath,
+        	permission.id AS id,
+        	permission.permission_name AS permissionName,
+        	permission.permission_code AS permissionCode
+        FROM
+        	admin_role_menu_permission rmp
+        INNER JOIN admin_menu_permission mp ON rmp.menu_permission_id = mp.id 
+        INNER JOIN admin_permission permission ON mp.permission_id = permission.id 
+        INNER JOIN admin_menu menu ON mp.menu_id = menu.id 
+        INNER JOIN admin_module module ON menu.module_id = module.id
+        WHERE
+        	rmp.disabled = 0
+        AND rmp.status = 0
+        AND mp.disabled = 0
+        AND mp.status = 0
+        AND permission.disabled = 0
+        AND permission.status = 0
+        AND menu.disabled = 0
+        AND menu.status = 0
+        AND module.disabled = 0
+        AND module.status = 0
+        AND rmp.role_id = #{roleId}
+        ORDER BY
+            module.sort ASC,
+            menu.sort ASC
+    </select>
+</mapper>

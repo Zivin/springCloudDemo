@@ -1,0 +1,49 @@
+server:
+  port: 8077
+
+spring:
+  application:
+    name: integration-system
+  #配置服务追踪服务器地址
+  zipkin:
+    base-url: http://localhost:8074
+  druid:
+    datasource:
+      name: spring-cloud
+      url: jdbc:mysql://localhost:3306/integration-system?useUnicode=true&characterEncoding=utf-8
+      username: root
+      password: root
+      # 使用druid数据源
+      type: com.alibaba.druid.pool.DruidDataSource
+      driverClassName: com.mysql.jdbc.Driver
+      filters: stat,wall,log4j2,config
+      maxActive: 20
+      initialSize: 1
+      maxWait: 60000
+      minIdle: 1
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1 FROM DUAL
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxOpenPreparedStatements: 20
+      maxPoolPreparedStatementPerConnectionSize: 20
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      useGlobalDataSourceStat: true
+
+#打开Feign的自带断路器
+feign:
+  hystrix:
+    enabled: true
+
+#中央服务管理配置
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8071/eureka/
+
+#log4j日志配置
+logging:
+  config: classpath:log4j2.xml

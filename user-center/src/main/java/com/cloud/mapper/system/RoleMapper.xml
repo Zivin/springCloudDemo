@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.mapper.system.RoleMapper">
+    <resultMap id="BaseResultMap" type="com.cloud.entity.system.role.RoleVo">
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+        <result column="role_code" jdbcType="VARCHAR" property="roleCode" />
+        <result column="status" jdbcType="BIT" property="status" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="create_user_id" jdbcType="VARCHAR" property="createUserId" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_user_id" jdbcType="VARCHAR" property="updateUserId" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="disabled" jdbcType="BIT" property="disabled" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, role_name, role_code, status, remark, create_user_id,
+        create_time, update_user_id, update_time, disabled
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String"
+        resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from admin_role
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from admin_role
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.cloud.entity.system.role.Role">
+        insert into admin_role (id,
+        role_name, role_code,
+        status, remark, create_user_id,
+        create_time,
+        update_user_id, update_time,
+        disabled)
+        values (#{id,jdbcType=VARCHAR},
+        #{roleName,jdbcType=VARCHAR},
+        #{roleCode,jdbcType=VARCHAR},
+        #{status,jdbcType=BIT}, #{remark,jdbcType=VARCHAR},
+        #{createUserId,jdbcType=VARCHAR},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateUserId,jdbcType=VARCHAR},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{disabled,jdbcType=BIT})
+    </insert>
+    <insert id="insertSelective" parameterType="com.cloud.entity.system.role.Role">
+        insert into admin_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="roleName != null">
+                role_name,
+            </if>
+            <if test="roleCode != null">
+                role_code,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="createUserId != null">
+                create_user_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateUserId != null">
+                update_user_id,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="disabled != null">
+                disabled,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="roleName != null">
+                #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="roleCode != null">
+                #{roleCode,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=BIT},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="createUserId != null">
+                #{createUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUserId != null">
+                #{updateUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="disabled != null">
+                #{disabled,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.cloud.entity.system.role.Role">
+        update admin_role
+        <set>
+            <if test="roleName != null">
+                role_name = #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="roleCode != null">
+                role_code = #{roleCode,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=BIT},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="createUserId != null">
+                create_user_id = #{createUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUserId != null">
+                update_user_id = #{updateUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="disabled != null">
+                disabled = #{disabled,jdbcType=BIT},
+            </if>
+        </set>
+        where
+        <choose>
+            <when test="ids != null and ids.size() > 0">
+                id IN 
+                <foreach collection="ids" item="item" index="index" open="(" close=")" separator=",">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </when>
+            <otherwise>
+                id = #{id,jdbcType=VARCHAR}
+            </otherwise>
+        </choose>
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.cloud.entity.system.role.Role">
+        update admin_role
+        set
+        role_name = #{roleName,jdbcType=VARCHAR},
+        role_code =
+        #{roleCode,jdbcType=VARCHAR},
+        status = #{status,jdbcType=BIT},
+        remark =
+        #{remark,jdbcType=VARCHAR},
+        create_user_id =
+        #{createUserId,jdbcType=VARCHAR},
+        create_time =
+        #{createTime,jdbcType=TIMESTAMP},
+        update_user_id =
+        #{updateUserId,jdbcType=VARCHAR},
+        update_time =
+        #{updateTime,jdbcType=TIMESTAMP},
+        disabled = #{disabled,jdbcType=BIT}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    
+    <select id="getList" parameterType="com.cloud.entity.system.role.RoleQo" resultMap="BaseResultMap">
+        SELECT
+            <include refid="Base_Column_List" />
+        FROM admin_role role
+        WHERE 
+            1 = 1
+        AND role.disabled = 0
+        <if test="roleName != null and roleName != ''">
+            AND role.role_name LIKE CONCAT('%', #{roleName}, '%')
+        </if>
+        <if test="roleCode != null and roleCode != ''">
+            AND role.role_code LIKE CONCAT('%', #{roleCode}, '%')
+        </if>
+        <if test="status != null">
+            AND role.status = #{status}
+        </if>
+        <if test="remark != null and remark != ''">
+            AND role.remark LIKE CONCAT('%', #{remark}, '%')
+        </if>
+    </select>
+        
+    <select id="getRoleMenuPermissionList" parameterType="java.lang.String" resultType="com.cloud.entity.system.role.RoleMenuPermission">
+        SELECT
+            rmp.id AS id,
+            rmp.role_id AS roleId,
+            r.role_name AS roleName,
+            mp.menu_id AS menuId,
+            m.menu_name AS menuName,
+            mp.permission_id AS permissionId,
+            p.permission_name AS permissionName,
+            rmp.status AS status,
+            rmp.remark AS remark,
+            rmp.create_user_id AS createUserId,
+            rmp.create_time AS createTime,
+            rmp.update_user_id AS updateUserId,
+            rmp.update_time AS updateTime 
+        FROM
+            admin_role_menu_permission rmp
+        INNER JOIN admin_role r ON rmp.role_id = r.id AND r.disabled = 0
+        INNER JOIN admin_menu_permission mp ON rmp.menu_permission_id = mp.id AND mp.disabled = 0 
+        INNER JOIN admin_menu m ON mp.menu_id = m.id AND m.disabled = 0
+        INNER JOIN admin_permission p ON mp.permission_id = p.id AND p.disabled = 0
+        WHERE
+            rmp.role_id = #{roleId}
+        AND rmp.disabled = 0
+    </select>
+    
+    <update id="disableRoleMenuPermission" parameterType="com.cloud.entity.system.role.RoleVo">
+        UPDATE admin_role_menu_permission
+        SET status = 1, update_user_id = #{updateUserId}, update_time = #{updateTime}
+        WHERE role_id = #{id}
+    </update>
+    
+    <update id="enableRoleMenuPermission" parameterType="com.cloud.entity.system.role.RoleVo">
+        UPDATE admin_role_menu_permission
+        SET status = 0, update_user_id = #{updateUserId}, update_time = #{updateTime}
+        WHERE id IN 
+        <foreach collection="roleMenuPermissionList" index="index" item="item" open="(" close=")" separator=",">
+            #{item.id}
+        </foreach>
+    </update>
+    
+    <select id="getMaxRoleCode" resultType="java.lang.String">
+        SELECT
+            MAX( role.role_code ) 
+        FROM
+            admin_role role
+    </select>
+    
+    <insert id="saveRoleMenuPermissionList" parameterType="com.cloud.entity.system.role.RoleVo">
+        INSERT INTO admin_role_menu_permission (id, role_id, menu_permission_id, status, create_time, create_user_id) VALUES
+        <foreach collection="roleMenuPermissionList" index="index" item="item" separator=",">
+            (REPLACE(UUID(),'-',''), #{id}, #{item.id}, 0, #{createTime}, #{createUserId})
+        </foreach>
+    </insert>
+</mapper>
