@@ -50,7 +50,7 @@ logging:
 
 # 七牛配置
 qiniu:
-  accessKey: BTh1ux1ca70g4XC0gOA66FWpz1fvb3gX2b8VzsZo
-  secretKey: WEyqfdGI61LWYDbriruFOSkFDSw3S5DLyYGGX68e
-  bucket: yj-integration
-  domain: http://p1iostcyk.bkt.clouddn.com/
+  accessKey: 
+  secretKey: 
+  bucket: 
+  domain: 
